@@ -1,0 +1,47 @@
+﻿@model SubscriptionPackageDto
+
+@{
+    ViewData["Title"] = Model.Id == Guid.Empty ? "Create Package" : "Edit Package";
+}
+
+<div class="card shadow-sm border-0">
+    <div class="card-header bg-primary text-white">
+        <h5>@ViewData["Title"]</h5>
+    </div>
+    <div class="card-body">
+        <form asp-action="Save" method="post">
+            <input type="hidden" asp-for="Id" />
+
+            <div class="mb-3">
+                <label asp-for="PackageName" class="form-label">Package Name</label>
+                <input asp-for="PackageName" class="form-control" />
+                <span asp-validation-for="PackageName" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="ShippimentCount" class="form-label">Allowed Shipments</label>
+                <input asp-for="ShippimentCount" class="form-control" type="number" min="1" />
+                <span asp-validation-for="ShippimentCount" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="NumberOfKiloMeters" class="form-label">Allowed Kilometers</label>
+                <input asp-for="NumberOfKiloMeters" class="form-control" type="number" min="1" step="0.01" />
+                <span asp-validation-for="NumberOfKiloMeters" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="TotalWeight" class="form-label">Allowed Total Weight (Kg)</label>
+                <input asp-for="TotalWeight" class="form-control" type="number" min="1" step="0.01" />
+                <span asp-validation-for="TotalWeight" class="text-danger"></span>
+            </div>
+
+            <button type="submit" class="btn btn-success">@ViewData["Title"]</button>
+            <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

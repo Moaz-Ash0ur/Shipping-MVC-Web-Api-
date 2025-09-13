@@ -1,0 +1,96 @@
+﻿@model IEnumerable<SubscriptionPackageDto>
+
+@{
+    ViewData["Title"] = "Choose Your Subscription Plan";
+}
+
+<div class="text-center my-5">
+    <h1 class="fw-bold">Find the Right Plan for You</h1>
+    <p class="text-muted">Choose a subscription package that matches your shipping needs</p>
+</div>
+
+<div class="row justify-content-center">
+    @foreach (var package in Model)
+    {
+        var isPopular = package.PackageName.ToLower().Contains("pro") || package.PackageName.ToLower().Contains("premium");
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-lg border-0 h-100 pricing-card">
+                <div class="card-header text-center bg-light">
+                    <div class="d-flex justify-content-center align-items-center gap-2">
+                        <h4 class="fw-bold mb-0">@package.PackageName</h4>
+                        @if (isPopular)
+                        {
+                            <span class="badge bg-warning text-dark">
+                                ⭐ Most Popular
+                            </span>
+                        }
+                    </div>
+                </div>
+                <div class="card-body text-center">
+                    <p class="mb-2">
+                        <i class="bi bi-box-seam text-primary"></i>
+                        <strong>@package.ShippimentCount</strong> Shipments
+                    </p>
+                    <p class="mb-2">
+                        <i class="bi bi-signpost-split text-success"></i>
+                        <strong>@package.NumberOfKiloMeters</strong> Km
+                    </p>
+                    <p class="mb-2">
+                        <i class="bi bi-scales text-danger"></i>
+                        <strong>@package.TotalWeight</strong> Kg Total Weight
+                    </p>
+
+                    <h3 class="fw-bold text-primary my-3">
+                        $99 <small class="text-muted">/month</small>
+                    </h3>
+                </div>
+                <div class="card-footer text-center bg-white border-0">
+                    <form asp-action="Subscribe" method="post">
+                        <input type="hidden" name="packageId" value="@package.Id" />
+                        <button type="submit" class="btn btn-primary btn-lg w-100 rounded-pill shadow-sm">
+                            <i class="bi bi-check-circle"></i> Subscribe
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<style>
+    .pricing-card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        border-radius: 20px;
+    }
+
+        .pricing-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+
+        .pricing-card .card-header {
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+        }
+</style>
+
+@section Scripts {
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            @if (TempData["MessageType"] != null)
+            {
+                    var messageType = TempData["MessageType"];
+
+                    if ((int)messageType == 1)
+                    {
+                            @:appAlert.Success('Success', 'You Subscribe Successfully.');
+                    }
+                    else if ((int)messageType == 2)
+                    {
+                           @:appAlert.Error('Faild', 'You are already Subscribe on other Package.');
+                    }
+                    
+            }
+        });
+    </script>
+}

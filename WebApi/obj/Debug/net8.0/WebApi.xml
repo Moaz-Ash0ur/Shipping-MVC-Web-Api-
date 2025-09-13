@@ -1,0 +1,272 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>WebApi</name>
+    </assembly>
+    <members>
+        <member name="M:WebApi.Controllers.CarriersController.GetAll">
+            <summary>
+            Get all cities
+            </summary>
+        </member>
+        <member name="M:WebApi.Controllers.CarriersController.GetById(System.Guid)">
+            <summary>
+            Get city by Id
+            </summary>
+        </member>
+        <member name="M:WebApi.Controllers.CarriersController.Add(BL.DTOs.CarrierDto)">
+            <summary>
+            Add new city
+            </summary>
+        </member>
+        <member name="M:WebApi.Controllers.CarriersController.Update(System.Guid,BL.DTOs.CarrierDto)">
+            <summary>
+            Update city
+            </summary>
+        </member>
+        <member name="M:WebApi.Controllers.CarriersController.Delete(System.Guid)">
+            <summary>
+            Delete (soft delete) city
+            </summary>
+        </member>
+        <member name="M:WebApi.Controllers.CityController.GetAll">
+            <summary>
+            Get all cities
+            </summary>
+        </member>
+        <member name="M:WebApi.Controllers.CityController.GetById(System.Guid)">
+            <summary>
+            Get city by Id
+            </summary>
+        </member>
+        <member name="M:WebApi.Controllers.CityController.GetByCountryId(System.Guid)">
+            <summary>
+            Get all cities by country Id
+            </summary>
+        </member>
+        <member name="M:WebApi.Controllers.CityController.Add(BL.DTOs.CityDto)">
+            <summary>
+            Add new city
+            </summary>
+        </member>
+        <member name="M:WebApi.Controllers.CityController.Update(System.Guid,BL.DTOs.CityDto)">
+            <summary>
+            Update city
+            </summary>
+        </member>
+        <member name="M:WebApi.Controllers.CityController.Delete(System.Guid)">
+            <summary>
+            Delete (soft delete) city
+            </summary>
+        </member>
+        <member name="M:WebApi.Controllers.ShipmentController.GetAllShipments">
+            <summary>
+            Get all shipments (non-paginated).
+            </summary>
+        </member>
+        <member name="M:WebApi.Controllers.ShipmentController.CreateShipmentAsync(BL.DTOs.ShippmentDto)">
+            <summary>
+            Create a new shipment.
+            </summary>
+        </member>
+        <member name="M:WebApi.Controllers.ShipmentController.UpdateShipmentAsync(BL.DTOs.ShippmentDto)">
+            <summary>
+            Update an existing shipment.
+            </summary>
+        </member>
+        <member name="M:WebApi.Controllers.ShipmentController.DeleteShipment(System.Guid)">
+            <summary>
+            Delete a shipment by ID.
+            </summary>
+        </member>
+        <member name="M:WebApi.Controllers.ShipmentController.GetUserShipments(System.Int32,System.Int32)">
+            <summary>
+            Get shipments for the current user (paginated).
+            </summary>
+        </member>
+        <member name="M:WebApi.Controllers.ShipmentController.GetUserShipmentById(System.Guid)">
+            <summary>
+            Get a single shipment by ID (for user).
+            </summary>
+        </member>
+        <member name="M:WebApi.Controllers.ShipmentController.GetAllShipments(System.Int32)">
+            <summary>
+            Get all shipments (paginated).
+            </summary>
+        </member>
+        <member name="M:WebApi.Controllers.ShipmentController.GetShipmentById(System.Guid)">
+            <summary>
+            Get shipment details by ID.
+            </summary>
+        </member>
+        <member name="M:WebApi.Controllers.ShipmentController.ChangeShipmentStatus(BL.DTOs.ShippmentDto,BL.Services.Shippment.ShipmentStatus.ShipmentStatusEnum)">
+            <summary>
+            Change the status of an existing shipment.
+            </summary>
+            <param name="data">Shipment data (only Id is required).</param>
+            <param name="newStatus">
+            New status to apply to the shipment.
+            Available values: Created = 0, Deleted = 1, Approved = 2, ReadyForShip = 3, Shipped = 4, Delivered = 5, Returned = 6.
+            </param>
+            <returns>Returns the updated shipment with the new status.</returns>
+        </member>
+        <member name="M:WebApi.Controllers.ShippingPackagesController.GetAll">
+            <summary>
+            Get all shipping packages
+            </summary>
+            <returns>List of ShippingPackageDto wrapped in ApiResponse</returns>
+        </member>
+        <member name="M:WebApi.Controllers.ShippingPackagesController.GetById(System.Guid)">
+            <summary>
+            Get a shipping package by Id
+            </summary>
+            <param name="Id">Shipping package Id (Guid)</param>
+            <returns>Single ShippingPackageDto wrapped in ApiResponse</returns>
+        </member>
+        <member name="M:WebApi.Controllers.ShippingPackagesController.Add(BL.DTOs.ShippingPackageDto)">
+            <summary>
+            Add new shipping package
+            </summary>
+            <param name="shippingPackageDto">ShippingPackageDto object</param>
+            <returns>Created ShippingPackageDto wrapped in ApiResponse</returns>
+        </member>
+        <member name="M:WebApi.Controllers.ShippingPackagesController.Update(System.Guid,BL.DTOs.ShippingPackageDto)">
+            <summary>
+            Update existing shipping package
+            </summary>
+            <param name="Id">Shipping package Id (Guid)</param>
+            <param name="shippingPackageDto">Updated ShippingPackageDto object</param>
+            <returns>Updated ShippingPackageDto wrapped in ApiResponse</returns>
+        </member>
+        <member name="M:WebApi.Controllers.ShippingPackagesController.ChangeStatus(System.Guid)">
+            <summary>
+            Change status of a shipping package (e.g., Active/Inactive)
+            </summary>
+            <param name="Id">Shipping package Id (Guid)</param>
+            <returns>Boolean result wrapped in ApiResponse</returns>
+        </member>
+        <member name="M:WebApi.Controllers.ShippingTypesController.GetAll">
+            <summary>
+            Get all shipping types
+            </summary>
+        </member>
+        <member name="M:WebApi.Controllers.ShippingTypesController.GetById(System.Guid)">
+            <summary>
+            Get a shipping type by Id
+            </summary>
+        </member>
+        <member name="M:WebApi.Controllers.ShippingTypesController.Insert(BL.DTOs.ShippingTypeDto)">
+            <summary>
+            Insert new shipping type
+            </summary>
+        </member>
+        <member name="M:WebApi.Controllers.ShippingTypesController.Update(System.Guid,BL.DTOs.ShippingTypeDto)">
+            <summary>
+            Update existing shipping type
+            </summary>
+        </member>
+        <member name="M:WebApi.Controllers.ShippingTypesController.ChangeStatus(System.Guid)">
+            <summary>
+            Change status of a shipping type
+            </summary>
+        </member>
+        <member name="M:WebApi.Controllers.SubscriptionPackageController.GetAll">
+            <summary>
+            Get all subscription packages
+            </summary>
+        </member>
+        <member name="M:WebApi.Controllers.SubscriptionPackageController.GetById(System.Guid)">
+            <summary>
+            Get subscription package by Id
+            </summary>
+        </member>
+        <member name="M:WebApi.Controllers.SubscriptionPackageController.Add(BL.DTOs.SubscriptionPackageDto)">
+            <summary>
+            Add new subscription package
+            </summary>
+        </member>
+        <member name="M:WebApi.Controllers.SubscriptionPackageController.Update(System.Guid,BL.DTOs.SubscriptionPackageDto)">
+            <summary>
+            Update existing subscription package
+            </summary>
+        </member>
+        <member name="M:WebApi.Controllers.SubscriptionPackageController.Delete(System.Guid)">
+            <summary>
+            Delete subscription package (soft delete by changing status)
+            </summary>
+        </member>
+        <member name="T:WebApi.Controllers.UserAccountController">
+            <summary>
+            API Controller responsible for handling user profile and subscription operations.
+            </summary>
+        </member>
+        <member name="M:WebApi.Controllers.UserAccountController.GetUserProfile">
+            <summary>
+            Retrieves the profile information of the currently logged-in user.
+            </summary>
+            <returns>
+            200 OK with <see cref="T:BL.DTOs.UserDto"/> if found, otherwise a failure response.
+            </returns>
+        </member>
+        <member name="M:WebApi.Controllers.UserAccountController.UpdateUserProfileAsync(System.Guid,BL.DTOs.EditUserDto)">
+            <summary>
+            Updates the profile of the currently logged-in user.
+            </summary>
+            <param name="userId">
+            The user ID (ignored, it is overridden by the logged-in user's ID).
+            </param>
+            <param name="dto">
+            The updated user data.
+            </param>
+            <returns>
+            200 OK with updated <see cref="T:BL.DTOs.EditUserDto"/> if successful, otherwise a failure response.
+            </returns>
+        </member>
+        <member name="M:WebApi.Controllers.UserAccountController.GetUserSubscription(System.Guid)">
+            <summary>
+            Retrieves the subscription details (with packages) for the currently logged-in user.
+            </summary>
+            <param name="userId">
+            The user ID (ignored, it is overridden by the logged-in user's ID).
+            </param>
+            <returns>
+            200 OK with <see cref="T:BL.DTOs.UserSubscriptionDto"/> if subscription exists, otherwise a failure response.
+            </returns>
+        </member>
+        <member name="M:WebApi.Controllers.UserSubscriptionController.GetAll">
+            <summary>
+            Get all user subscriptions
+            </summary>
+        </member>
+        <member name="M:WebApi.Controllers.UserSubscriptionController.GetById(System.Guid)">
+            <summary>
+            Get user subscription by Id
+            </summary>
+        </member>
+        <member name="M:WebApi.Controllers.UserSubscriptionController.GetByUser(System.Guid)">
+            <summary>
+            Get user subscription by User Id
+            </summary>
+        </member>
+        <member name="M:WebApi.Controllers.UserSubscriptionController.GetByPackage(System.Guid)">
+            <summary>
+            Get user subscription by Package Id
+            </summary>
+        </member>
+        <member name="M:WebApi.Controllers.UserSubscriptionController.Subscribe(BL.DTOs.UserSubscriptionDto)">
+            <summary>
+            user subscription
+            </summary>
+        </member>
+        <member name="M:WebApi.Controllers.UserSubscriptionController.Update(System.Guid,BL.DTOs.UserSubscriptionDto)">
+            <summary>
+            Update user subscription
+            </summary>
+        </member>
+        <member name="M:WebApi.Controllers.UserSubscriptionController.Delete(System.Guid)">
+            <summary>
+            Delete (soft delete) user subscription
+            </summary>
+        </member>
+    </members>
+</doc>

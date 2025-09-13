@@ -1,0 +1,45 @@
+﻿@model CityDto
+
+
+@{
+    ViewData["Title"] = Model.Id == Guid.Empty ? "Create City" : "Edit City";
+}
+
+<div class="card shadow-sm border-0">
+    <div class="card-header bg-primary text-white">
+        <h5>@ViewData["Title"]</h5>
+    </div>
+    <div class="card-body">
+        <form asp-action="Save" method="post">
+
+            <input type="hidden" asp-for="Id" />
+
+            <div class="mb-3">
+                <label asp-for="CityAname" class="form-label">Arabic Name</label>
+                <input asp-for="CityAname" class="form-control" />
+                <span asp-validation-for="CityAname" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="CityEname" class="form-label">English Name</label>
+                <input asp-for="CityEname" class="form-control" />
+                <span asp-validation-for="CityEname" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="CountryId" class="form-label">Country Name</label>
+                <select asp-for="CountryId" class="form-control" asp-items="@ViewBag.Countries">
+                    <option value="">Select Country</option>
+                </select>
+                <span asp-validation-for="CountryId" class="text-danger"></span>
+            </div>
+
+            <button type="submit" class="btn btn-success">@ViewData["Title"]</button>
+            <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

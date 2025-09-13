@@ -1,0 +1,275 @@
+﻿@model ShippmentDto
+
+
+<div class="wshipping-content-block shipping-block">
+    <div class="container">
+        <h2 class="heading2-border mt0">Edit Shipping</h2>
+        <div class="row">
+            <div class="shipping-form-block">
+
+                <form class="steps" method="post" action="/Shipment/Edit" accept-charset="UTF-8">
+
+                    <!-- progressbar -->
+                    <ul id="progressbar">
+                        <li class="active">Sender</li>
+                        <li>Receiver</li>
+                        <li>Package</li>
+                        <li>Shipping</li>
+                        <li>Complete</li>
+                    </ul>
+
+
+                    <input type="hidden" asp-for="Id" />
+                    <input type="hidden" asp-for="DeliveryDate" />
+                    <input type="hidden" asp-for="TrackingNumber" />
+                    <input type="hidden" asp-for="ShippingRate" />
+
+
+                    <!-- Step 1: Sender -->
+                    <fieldset>
+                        <h2 class="fs-title">Edit Sender Information</h2>
+                        <div class="shipping-form">
+                            <div class="row">
+
+                                <div class="col-12 col-lg-4">
+                                    <div class="form-group">
+                                        <label>Country</label>
+                                        <select id="SenderCountryDropdown" class="form-control country-dropdown" data-target="#SenderCityDropdown" asp-for="UserSender.CountryId" asp-items="@ViewBag.Countries" required>
+                                            <option value="">-- Select Country --</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-lg-4">
+                                    <div class="form-group">
+                                        <label>City</label>
+                                        <select id="SenderCityDropdown" class="form-control city-dropdown" asp-for="UserSender.CityId" data-selected="@Model.UserSender.CityId" required>
+                                            <option value="">-- Select City --</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-lg-4">
+                                    <div class="form-group">
+                                        <label>Postal Code</label>
+                                        <input type="text" class="form-control" asp-for="@Model.UserSender.PostalCode" />
+                                    </div>
+                                </div>
+
+
+                                <div class="col-12 col-lg-4">
+                                    <div class="form-group">
+                                        <label>Name</label>
+                                        <input type="text" class="form-control" asp-for="@Model.UserSender.SenderName" />
+                                    </div>
+                                </div>
+                                <div class="col-12 col-lg-4">
+                                    <div class="form-group">
+                                        <label>Phone</label>
+                                        <input type="text" class="form-control" asp-for="@Model.UserSender.Phone" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <label>Address</label>
+                                    <input type="text" class="form-control" asp-for="@Model.UserSender.Address" />
+                                </div>
+                            </div>
+                        </div>
+                        <input type="button" name="next" class="next action-button" value="Continue" />
+                    </fieldset>
+
+                    <!-- Step 2: Receiver -->
+                    <fieldset>
+                        <h2 class="fs-title">Edit Receiver Information</h2>
+                        <div class="shipping-form">
+                            <div class="row">
+                                <div class="col-12 col-lg-4">
+                                    <div class="form-group">
+                                        <label>Country</label>
+                                        <select id="ReceiverCountryDropdown" class="form-control country-dropdown" data-target="#ReceiverCityDropdown" asp-for="UserReceiver.CountryId" asp-items="@ViewBag.Countries" required>
+                                            <option value="">-- Select Country --</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-lg-4">
+                                    <div class="form-group">
+                                        <label>City</label>
+                                        <select id="ReceiverCityDropdown" class="form-control city-dropdown" asp-for="UserReceiver.CityId" data-selected="@Model.UserReceiver.CityId" required>
+                                            <option value="">-- Select City --</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-12 col-lg-4">
+                                    <div class="form-group">
+                                        <label>Postal Code</label>
+                                        <input type="text" class="form-control" asp-for="@Model.UserReceiver.PostalCode" />
+                                    </div>
+                                </div>
+
+
+
+                                <div class="col-12 col-lg-4">
+                                    <label>Name</label>
+                                    <input type="text" class="form-control" asp-for="@Model.UserReceiver.ReceiverName" />
+                                </div>
+                                <div class="col-12 col-lg-4">
+                                    <label>Phone</label>
+                                    <input type="text" class="form-control" asp-for="@Model.UserReceiver.Phone" />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <label>Address</label>
+                                    <input type="text" class="form-control" asp-for="@Model.UserReceiver.Address" />
+                                </div>
+                            </div>
+                        </div>
+                        <input type="button" name="previous" class="previous action-button" value="Previous" />
+                        <input type="button" name="next" class="next action-button" value="Continue" />
+                    </fieldset>
+
+                    <!-- Step 3: Package -->
+                    <fieldset>
+                        <h2 class="fs-title">Edit Package Details</h2>
+                        <div class="shipping-form">
+                            <div class="row">
+                                <div class="col-12 col-lg-6">
+                                    <label>Package Type</label>
+                                    <select asp-for="@Model.ShippingPackgingId" asp-items="@ViewBag.ShippingPackages" class="form-control">
+                                        <option value="">Select Packaging</option>
+                                    </select>
+                                </div>
+                                <div class="col-12 col-lg-6">
+                                    <label>Weight</label>
+                                    <input type="text" class="form-control" asp-for="@Model.Weight" />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 col-lg-4">
+                                    <label>Length</label>
+                                    <input type="text" class="form-control" asp-for="@Model.Length" />
+                                </div>
+                                <div class="col-12 col-lg-4">
+                                    <label>Width</label>
+                                    <input type="text" class="form-control" asp-for="@Model.Width" />
+                                </div>
+                                <div class="col-12 col-lg-4">
+                                    <label>Height</label>
+                                    <input type="text" class="form-control" asp-for="@Model.Height" />
+                                </div>
+                            </div>
+                        </div>
+                        <input type="button" name="previous" class="previous action-button" value="Previous" />
+                        <input type="button" name="next" class="next action-button" value="Continue" />
+                    </fieldset>
+
+                    <!-- Step 4: Shipping -->
+                    <fieldset>
+                        <h2 class="fs-title">Edit Shipping Details</h2>
+                        <div class="shipping-form">
+                            <div class="row">
+
+                                <div class="col-12 col-lg-6">
+                                    <label>Pickup Date</label>
+                                    <input type="date" class="form-control" asp-for="@Model.ShippingDate" />
+                                </div>
+                           
+                            </div>
+                            <div class="row">
+                                <div class="col-12 col-lg-6">
+                                    <label>Shipping Type</label>
+                                    <select asp-for="ShippingTypeId" class="form-control" asp-items="@ViewBag.ShippingTypes">
+                                        <option value="">Select Type Shipping</option>
+
+                                    </select>
+                                </div>
+                                <div class="col-12 col-lg-6">
+                                    <label>Delivery Details</label>
+                                    <input type="text" class="form-control" asp-for="@Model.UserSender.OtherAddress" />
+                                </div>
+                            </div>
+                        </div>
+                        <input type="button" name="previous" class="previous action-button" value="Previous" />
+                        <input type="button" name="next" class="next action-button" value="Continue" />
+                    </fieldset>
+
+                    <!-- Step 5: Complete -->
+                    <fieldset>
+                        <div class="shipping-form">
+                            <h1 class="tanks-message">Review & Save Changes</h1>
+                        </div>
+                        <input type="button" name="previous" class="previous action-button" value="Previous" />
+                        <input type="submit" name="submit" class="submit action-button" value="Save Changes" />
+                    </fieldset>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{
+
+    <script>
+
+        document.addEventListener("DOMContentLoaded", function () {
+
+            const countryDropdowns = document.querySelectorAll(".country-dropdown");
+
+            countryDropdowns.forEach(dropdown => {
+
+                dropdown.addEventListener("change", function () {
+                    const targetCitySelector = this.getAttribute("data-target");
+                    const cityDropdown = document.querySelector(targetCitySelector);
+                    if (cityDropdown) {
+                        loadCities(this.value, cityDropdown);
+                    }
+
+                });
+                //in this.ontimeupdate to lead city depand country
+                const targetCitySelector = dropdown.getAttribute("data-target");
+                const cityDropdown = document.querySelector(targetCitySelector);
+                if (dropdown.value && cityDropdown) {
+                    const selectedCityId = cityDropdown.getAttribute("data-selected");
+                    loadCities(dropdown.value, cityDropdown, selectedCityId);
+                }
+            });
+
+            function loadCities(countryId, cityDropdown, selectedCityId = null) {
+                cityDropdown.innerHTML = '<option value="">-- Select City --</option>';
+                if (!countryId) return;
+
+                fetch(`/Shipment/GetCitiesByCountry?countryId=${countryId}`)
+                    .then(res => res.json())
+                    .then(data => {
+                        data.forEach(city => {
+                            const option = document.createElement("option");
+                            option.value = city.Id;
+                            option.innerText = city.CityEname;
+
+                            if (selectedCityId && city.Id == selectedCityId) {
+                                option.selected = true;
+                            }
+
+                            cityDropdown.appendChild(option);
+                        });
+                    })
+                    .catch(err => console.error("Error loading cities:", err));
+            }
+        });
+
+
+
+
+
+    </script>
+
+}
+
+

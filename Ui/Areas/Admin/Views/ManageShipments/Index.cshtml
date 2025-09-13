@@ -1,0 +1,147 @@
+﻿@using BL.Services.Shippment.ShipmentStatus
+@model PagedResultModel<ShippmentDto>
+
+<div class="card shadow-sm rounded-3">
+    <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+        <h5 class="mb-0"><i class="bi bi-box-seam"></i> Shipments</h5>      
+    </div>
+
+    <div class="card-body p-0">
+        @if (!Model.Items.Any())
+        {
+            <div class="alert alert-warning m-3">
+                <i class="bi bi-exclamation-triangle"></i> No Shipment found.
+            </div>
+        }
+        else
+        {
+            <div class="table-responsive">
+                <table class="table table-hover table-striped mb-0 align-middle">
+                    <thead class="table-light">
+                        <tr>
+                            <th>#</th>
+                            <th>Tracking Number</th>
+                            <th>Order Date</th>
+                            <th>Shipping Value</th>
+                            <th>Sender</th>
+                            <th>Receiver</th>
+                            <th>Status</th>
+                            <th class="text-center">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            var index = 1;
+                        }
+
+
+
+                        @foreach (var shipment in Model.Items)
+                        {
+                            <tr>
+                                <td>@index</td>
+                                <td><span class="fw-bold">@shipment.TrackingNumber</span></td>
+                                <td>@shipment.ShippingDate.ToString("dd/MM/yyyy")</td>
+                                <td>@string.Format("{0:C}", shipment.ShippingRate)</td>
+                                <td>@shipment.UserSender.SenderName</td>
+                                <td>@shipment.UserReceiver.ReceiverName</td>
+                                <td>
+                                    @switch (shipment.CurrentState)
+                                    {
+                                        case (int)ShipmentStatusEnum.Created:
+                                            <span class="badge bg-info">Created</span>
+                                            break;
+                                        case (int)ShipmentStatusEnum.Approved:
+                                            <span class="badge bg-primary">Approved</span>
+                                            break;
+                                        case (int)ShipmentStatusEnum.ReadyForShip:
+                                            <span class="badge bg-secondary">Ready For Ship</span>
+                                            break;
+                                        case (int)ShipmentStatusEnum.Shipped:
+                                            <span class="badge bg-warning text-dark">Shipped</span>
+                                            break;
+                                        case (int)ShipmentStatusEnum.Delivered:
+                                            <span class="badge bg-success">Delivered</span>
+                                            break;
+                                        case (int)ShipmentStatusEnum.Returned:
+                                            <span class="badge bg-danger">Returned</span>
+                                            break;
+                                        default:
+                                            <span class="badge bg-dark">Unknown</span>
+                                            break;
+                                    }
+                                </td>
+                                <td class="text-center">
+                                    <div class="btn-group btn-group-sm" role="group">
+                                        <a href="@Url.Action("Show", new { Id = shipment.Id })"
+                                           class="btn btn-outline-primary" title="View">
+                                            <i class="bi bi-eye"></i>
+                                        </a>
+                                        <a href="@Url.Action("Edit", new { Id = shipment.Id })"
+                                           class="btn btn-outline-warning" title="Edit">
+                                            <i class="bi bi-pencil-square"></i>
+                                        </a>
+                                        <a href="@Url.Action("ChangeStatus", new { Id = shipment.Id })"
+                                           class="btn btn-outline-secondary" title="Change Status">
+                                            <i class="bi bi-arrow-repeat"></i>
+                                        </a>
+                                        <button data-id="@shipment.Id"
+                                                class="btn btn-outline-danger" title="Delete"
+                                                onclick="Delete(this)">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            index++;
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+    </div>
+
+    @if (Model.TotalPages > 1)
+    {
+        <div class="card-footer bg-light">
+            <nav aria-label="Shipment pagination">
+                <ul class="pagination justify-content-center mb-0">
+                    @if (Model.HasPrevious)
+                    {
+                        <li class="page-item">
+                            <a class="page-link" href="@Url.Action("List", new { page = Model.CurrentPage - 1 })">Previous</a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="page-item disabled">
+                            <span class="page-link">Previous</span>
+                        </li>
+                    }
+
+                    @for (int i = 1; i <= Model.TotalPages; i++)
+                    {
+                        <li class="page-item @(i == Model.CurrentPage ? "active" : "")">
+                            <a class="page-link" href="@Url.Action("List", new { page = i })">@i</a>
+                        </li>
+                    }
+
+                    @if (Model.HasNext)
+                    {
+                        <li class="page-item">
+                            <a class="page-link" href="@Url.Action("List", new { page = Model.CurrentPage + 1 })">Next</a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="page-item disabled">
+                            <span class="page-link">Next</span>
+                        </li>
+                    }
+                </ul>
+            </nav>
+        </div>
+    }
+</div>
+
+

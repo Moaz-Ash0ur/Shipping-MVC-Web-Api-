@@ -1,0 +1,73 @@
+﻿@model ShippmentDto
+
+<div class="container my-4">
+    <!-- Header -->
+    <div class="mb-4">
+        <h2>Shipment Details</h2>
+        <p><strong>Tracking Number:</strong> @Model.TrackingNumber</p>
+        @* <p><strong>Status:</strong> @Model.Status</p> *@
+        <p><strong>Estimated Delivery:</strong> @Model.DeliveryDate.ToString("dd MMM yyyy")</p>
+    </div>
+
+    <div class="row">
+        <!-- Sender Info -->
+        <div class="col-md-6 mb-3">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">Sender Information</h5>
+                </div>
+                <div class="card-body">
+                    <p><strong>Name:</strong> @Model.UserSender.SenderName</p>
+                    <p><strong>Country / City:</strong> @Model.UserSender.CountryId - @Model.UserSender.CityId</p>
+                    <p><strong>Address:</strong> @Model.UserSender.Address</p>
+                    <p><strong>Postal Code:</strong> @Model.UserSender.PostalCode</p>
+                    <p><strong>Contact:</strong> @Model.UserSender.Contact</p>
+                    <p><strong>Email:</strong> @Model.UserSender.Email</p>
+                    <p><strong>Phone:</strong> @Model.UserSender.Phone</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Receiver Info -->
+        <div class="col-md-6 mb-3">
+            <div class="card shadow-sm">
+                <div class="card-header bg-success text-white">
+                    <h5 class="mb-0">Receiver Information</h5>
+                </div>
+                <div class="card-body">
+                    <p><strong>Name:</strong> @Model.UserReceiver.ReceiverName</p>
+                    <p><strong>Country / City:</strong> @Model.UserReceiver.CountryId - @Model.UserReceiver.CityId</p>
+                    <p><strong>Address:</strong> @Model.UserReceiver.Address</p>
+                    <p><strong>Postal Code:</strong> @Model.UserReceiver.PostalCode</p>
+                    <p><strong>Contact:</strong> @Model.UserReceiver.Contact</p>
+                    <p><strong>Email:</strong> @Model.UserReceiver.Email</p>
+                    <p><strong>Phone:</strong> @Model.UserReceiver.Phone</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Package Info -->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card shadow-sm">
+                <div class="card-header bg-warning text-dark">
+                    <h5 class="mb-0">Package Information</h5>
+                </div>
+                <div class="card-body">
+                    @* <p><strong>Package Type:</strong> @Model.Package.PackageType</p>
+                    <p><strong>Weight:</strong> @Model.Package.Weight lbs</p>
+                    <p><strong>Dimensions:</strong> @Model.Package.Length x @Model.Package.Width x @Model.Package.Height in</p>
+                    <p><strong>Declared Value:</strong> $@Model.Package.PackageValue USD</p> *@
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Optional Actions -->
+    <div class="mt-4">
+        <a href="@Url.Action("List")" class="btn btn-outline-primary me-2"><i class="fa fa-arrow-alt-circle-left"></i> Go Back</a>
+        <a href="@Url.Action("TrackShipment", new { id = Model.Id })" class="btn btn-outline-success me-2"><i class="fa fa-map-marker-alt"></i> Track</a>
+    </div>
+</div>
+

@@ -1,0 +1,31 @@
+﻿@model CarrierDto
+
+
+@{
+    ViewData["Title"] = Model.Id == Guid.Empty ? "Create Carrier" : "Edit Carrier";
+}
+
+<div class="card shadow-sm border-0">
+    <div class="card-header bg-primary text-white">
+        <h5>@ViewData["Title"]</h5>
+    </div>
+    <div class="card-body">
+        <form asp-action="Save" method="post">
+
+            <input type="hidden" asp-for="Id" />
+
+            <div class="mb-3">
+                <label asp-for="CarrierName" class="form-label">Arabic Name</label>
+                <input asp-for="CarrierName" class="form-control" />
+                <span asp-validation-for="CarrierName" class="text-danger"></span>
+            </div>
+
+            <button type="submit" class="btn btn-success">@ViewData["Title"]</button>
+            <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

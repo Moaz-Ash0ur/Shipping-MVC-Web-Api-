@@ -1,0 +1,122 @@
+﻿@using BL.Services.Shippment.ShipmentStatus
+@model ShipmentStatusModel
+
+<h4>Change Shipment Status</h4>
+<hr />
+
+<!-- Shipment Timeline -->
+<div class="mb-4">
+    <h5>Shipment Timeline</h5>
+    <div class="d-flex align-items-center">
+
+        <button class="btn btn-sm rounded-circle d-flex justify-content-center align-items-center
+            @(Model.shipmentDto.CurrentState >= (int)ShipmentStatusEnum.Created ? "btn-primary" : "btn-secondary")"
+                style="width:80px; height:80px;">
+            Created
+        </button>
+
+        <div class="flex-grow-1 border-top mx-2"></div>
+
+        <button class="btn btn-sm rounded-circle d-flex justify-content-center align-items-center
+            @(Model.shipmentDto.CurrentState >= (int)ShipmentStatusEnum.Approved ? "btn-primary" : "btn-secondary")"
+                style="width:80px; height:80px;">
+            Approved
+        </button>
+
+        <div class="flex-grow-1 border-top mx-2"></div>
+
+        <button class="btn btn-sm rounded-circle d-flex justify-content-center align-items-center
+            @(Model.shipmentDto.CurrentState >= (int)ShipmentStatusEnum.ReadyForShip ? "btn-primary" : "btn-secondary")"
+                style="width:80px; height:80px;">
+            Ready
+        </button>
+
+        <div class="flex-grow-1 border-top mx-2"></div>
+
+        <button class="btn btn-sm rounded-circle d-flex justify-content-center align-items-center
+            @(Model.shipmentDto.CurrentState >= (int)ShipmentStatusEnum.Shipped ? "btn-primary" : "btn-secondary")"
+                style="width:80px; height:80px;">
+            Shipped
+        </button>
+
+        <div class="flex-grow-1 border-top mx-2"></div>
+
+        <button class="btn btn-sm rounded-circle d-flex justify-content-center align-items-center
+            @(Model.shipmentDto.CurrentState >= (int)ShipmentStatusEnum.Delivered ? "btn-primary" : "btn-secondary")"
+                style="width:80px; height:80px;">
+            Delivered
+        </button>
+
+        <div class="flex-grow-1 border-top mx-2"></div>
+
+        <button class="btn btn-sm rounded-circle d-flex justify-content-center align-items-center
+            @(Model.shipmentDto.CurrentState >= (int)ShipmentStatusEnum.Returned ? "btn-primary" : "btn-secondary")"
+                style="width:80px; height:80px;">
+            Returned
+        </button>
+
+    </div>
+</div>
+
+
+<form method="post" action="@Url.Action("ChangeStatus")" class="pt-3">
+
+    <input type="hidden" asp-for="@Model.shipmentDto.Id" value="@Model.shipmentDto.Id" />
+
+    <div class="mb-3">
+        <label for="status" class="form-label">Select New Status</label>
+        <select id="status" asp-for="NewStatus" class="form-select">
+            @foreach (var status in Enum.GetValues(typeof(ShipmentStatusEnum)).Cast<ShipmentStatusEnum>())
+            {
+                if ((int)status > (int)Model.shipmentDto.CurrentState)
+                {
+                    <option value="@status">@status</option>
+                }
+            }
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label for="comment" class="form-label">Comment (optional)</label>
+        <textarea id="comment" name="Comment" class="form-control" rows="3"></textarea>
+    </div>
+
+    @if ((User.IsInRole("Reviewer") || User.IsInRole("Admin")) && Model.shipmentDto.CurrentState == (int)ShipmentStatusEnum.Created)
+    {
+        <div class="alert alert-info">As a Reviewer you can approve or edit this shipment.</div>
+    }
+
+    @if (User.IsInRole("Admin") && Model.shipmentDto.CurrentState == (int)ShipmentStatusEnum.Approved)
+    {
+        <div class="mb-3">
+            <label class="form-label">Assign Carrier</label>
+            <select asp-for="shipmentDto.CarrierId" class="form-select" asp-items="@ViewBag.Carriers">
+                <option value="">--Select Carrier--</option>
+            </select>
+        </div>
+    }
+   
+    @if ((User.IsInRole("OperationManager") || User.IsInRole("Admin")) && Model.shipmentDto.CurrentState == (int)ShipmentStatusEnum.ReadyForShip)
+    {
+        <div class="mb-3">
+            <label class="form-label">Delivery Date (Actual)</label>
+            <input type="date" asp-for="shipmentDto.DeliveryDate" class="form-control" />
+        </div>
+    }
+
+    @{
+        string buttonText = Model.shipmentDto.CurrentState switch
+        {
+            (int)ShipmentStatusEnum.Created => "Approve",
+            (int)ShipmentStatusEnum.Approved => "Mark as ReadyForShip",
+            (int)ShipmentStatusEnum.ReadyForShip => "Mark as Shipped",
+            (int)ShipmentStatusEnum.Shipped => "Mark as Delivered",
+            _ => "Submit"
+        };
+    }
+
+    <button type="submit" class="btn btn-success">@buttonText</button>
+    <a href="@Url.Action("Index")" class="btn btn-secondary">Cancel</a>
+</form>
+
+

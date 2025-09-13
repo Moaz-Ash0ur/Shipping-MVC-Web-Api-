@@ -1,0 +1,107 @@
+﻿@model IEnumerable<ShippingTypeDto>
+
+@{
+    ViewData["Title"] = "Shipping Types";
+}
+
+<h1 class="text-center mb-5">Shipping Types</h1>
+
+<div class="card shadow-sm border-0">
+    <div class="row mb-3">
+        <div class="col m-3">
+            <a class="btn btn-primary" asp-action="Form">
+                <i class="bi bi-plus-circle"></i> Add New Shipping Type
+            </a>
+        </div>
+    </div>
+
+    <div class="card-body">
+        @if (!Model.Any())
+        {
+            <div class="alert alert-warning">No Shipping Type found.</div>
+        }
+        else
+        {
+            <table class="table table-bordered table-hover">
+                <thead class="table-light">
+                    <tr>
+                        <th>#</th>
+                        <th>Arabic Name</th>
+                        <th>English Name</th>
+                        <th>Shipping Factor</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td></td>
+                            <td>@item.ShippingTypeAname</td>
+                            <td>@item.ShippingTypeEname</td>
+                            <td>@item.ShippingFactor</td>
+                            <td>
+                                <a class="btn btn-sm btn-warning" asp-action="Form" asp-route-id=@item.Id>
+                                    <i class="bi bi-pencil"></i> Edit
+                                </a>
+
+                                <button type="button"
+                                 class="btn btn-sm btn-danger btn-delete" data-id="@item.Id" 
+                                  onclick="Delete(this)"> Delete </button>
+                            </td>
+
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    </div>
+</div>
+
+@section Scripts {
+
+    <script>
+          function Delete(button) {
+            let id = button.getAttribute("data-id");
+
+            appAlert.ConfirmDelete(function () {
+                window.location.href = '/Admin/ShippingTypes/Delete?id=' + id;                
+            });
+        }
+            document.addEventListener("DOMContentLoaded", function () {
+            @if (TempData["MessageType"] != null)
+            {
+                    <text>
+                    let messageType = @TempData["MessageType"];
+                    switch (messageType) 
+                    {
+                        case 1:
+                            appAlert.Success('Success', 'Data saved successfully.');
+                            break;
+                        case 2:
+                            appAlert.Error('Error', 'Something went wrong.');
+                            break;
+                        case 3:
+                           appAlert.Success('Success', 'Data Deleted successfully.');
+                           break;
+                        case 4:
+                           appAlert.Error('Error', 'Deleted Failed.');
+                           break;
+                    }
+                    </text>
+            }
+        });
+
+    </script>
+
+       
+       
+
+
+   
+
+
+
+  
+
+}
