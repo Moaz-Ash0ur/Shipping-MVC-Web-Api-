@@ -1,6 +1,5 @@
 🚚 Shipment & Subscription Management Web Application
 
-#ShipmentTracking #SubscriptionManagement #RoleBasedAccess #BusinessEfficiency #WebAPI #MVC #CleanArchitecture
 
 🌟 Overview
 
